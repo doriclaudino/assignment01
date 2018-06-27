@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>SELL YOUR IPHONE</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Mobland - Mobile App Landing Page Template">
+    <meta name="keywords" content="HTML5, bootstrap, mobile, app, landing, ios, android, responsive">
+
+    <!-- Font -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <!-- Themify Icons -->
+    <link rel="stylesheet" href="static/css/themify-icons.css">
+    <!-- Owl carousel -->
+    <link rel="stylesheet" href="static/css/owl.carousel.min.css">
+    <!-- Main css -->
+    <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body data-spy="scroll" data-target="#navbar" data-offset="30">
+
+    <!-- Nav Menu -->
+    <div class="nav-menu fixed-top {% if 'home' == active_view %} change-on-scrolling {% else %} is-scrolling {% endif %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-dark navbar-expand-lg">
+                        <a class="navbar-brand" href="/home">
+                            <span class="ti-mobile gradient-fill ti-2x"></span></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbar">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link {% if active_view == 'home' %}active{% endif %}" href="/home">HOME
+                                        <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if '/get-started' == request.path %}active{% endif %}" href="/get-started">GET STARTED</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if '/reviews' == request.path %}active{% endif %}" href="/reviews">REVIEWS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if '/contact' == request.path %}active{% endif %}" href="/contact">CONTACT</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/sell-my-phone" class="btn btn-outline-light my-3 my-sm-0 ml-lg-3">SELL MY IPHONE</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block content %} {% endblock %}
+
+    <!-- // end .section -->
+    <footer class="my-5 text-center">
+        <!-- Copyright removal is not prohibited! -->
+        <p class="mb-2">
+            <small>COPYRIGHT © 2017. ALL RIGHTS RESERVED. MOBAPP TEMPLATE BY
+                <a href="https://colorlib.com">COLORLIB</a>
+            </small>
+        </p>
+
+        <small>
+            <a href="#" class="m-2">PRESS</a>
+            <a href="#" class="m-2">TERMS</a>
+            <a href="#" class="m-2">PRIVACY</a>
+        </small>
+    </footer>
+
+    <!-- jQuery and Bootstrap -->
+    <script src="static/js/jquery-3.2.1.min.js"></script>
+    <script src="static/js/bootstrap.bundle.min.js"></script>
+    <!-- Plugins JS -->
+    <script src="static/js/owl.carousel.min.js"></script>
+    <!-- Custom JS -->
+    <script src="static/js/script.js"></script>
+
+</body>
+
+</html>

@@ -14,8 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from home.views import home
+from home.views import (home, contact, get_started, reviews, sell_my_phone)
+
+# url(r'.*', home) making the default route
 
 urlpatterns = [
+    url(r'^home$', home),
+    url(r'^contact$', contact),
+    url(r'^get-started$', get_started),
+    url(r'^reviews$', reviews),
+    url(r'^sell-my-phone$', sell_my_phone),
     url(r'.*', home)
 ]
