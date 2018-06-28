@@ -656,3 +656,18 @@ header {
     margin-top: 2rem;
   }
 }
+
+img.center-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  height: 180px;
+  object-fit: cover;
+}
+
+div.card:hover {
+  outline: 3px solid #fd378e;
+  border: none;
+  cursor: pointer;
+}

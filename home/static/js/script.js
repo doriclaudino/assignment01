@@ -14,6 +14,7 @@ $(function() {
   /*-----------------------------------
      * FIXED  MENU - HEADER
      *-----------------------------------*/
+
   function menuscroll() {
     var $navmenu = $(".nav-menu.change-on-scrolling");
 
