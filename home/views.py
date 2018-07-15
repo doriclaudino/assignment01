@@ -22,11 +22,22 @@ def contact(request):
     return render(request, 'home/contact.html')
 
 
-available_devices = [{"name": "iphone 7", "src": "static/images/iphone7.png", "spaces": [128, 64, 32]},
-                     {"name": "iphone 7 Plus", "src": "static/images/iphone7.png", "spaces": [128, 64, 32]},
-                     {"name": "iphone 8", "src": "static/images/iphonex.png", "spaces": [128, 64]},
-                     {"name": "iphone 8 Plus", "src": "static/images/iphonex.png", "spaces": [128, 64]}]
+models = [{"name": "iphone 7", "src": "static/images/iphone7.png"},
+          {"name": "iphone 7 Plus", "src": "static/images/iphone7.png"},
+          {"name": "iphone 8", "src": "static/images/iphonex.png"},
+          {"name": "iphone 8 Plus", "src": "static/images/iphonex.png"}]
+
+
+conditions = [{"name": "Flawless", "src": "static/images/condition-flawless.png"},
+              {"name": "Good", "src": "static/images/condition-good.png"},
+              {"name": "Damaged", "src": "static/images/condition-damaged.png"},
+              {"name": "No Power", "src": "static/images/condition-nopower.png"}]
+
+sizes = [{"name": "256gb", "src": "static/images/size-256.png"},
+         {"name": "128gb", "src": "static/images/size-128.png"},
+         {"name": "64gb", "src": "static/images/size-64.png"},
+         {"name": "32gb", "src": "static/images/size-32.png"}]
 
 
 def sell_my_phone(request):
-    return render(request, 'home/sell_my_phone.html', {"available_devices": available_devices})
+    return render(request, 'home/sell_my_phone.html', {"models": models,  "sizes": sizes, "conditions": conditions})
