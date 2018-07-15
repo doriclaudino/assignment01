@@ -1,17 +1,20 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+{% load jsonify %}
 
 
 <div class="section" id="pricing">
-    <div class="container">
+    <div class="container" id="model">
         <div class="section-title">
             <h3>Choose your model</h3>
         </div>
 
         <div class="container">
             <div class="row">
-                {% for i in available_devices %}
+                <input type="hidden" id="models" name="models" value="{{ models | jsonify }}"> {% for i in models %}
                 <div class="col-sm-6 col-md-3">
-                    <div class="card" style="margin-bottom:5px;">
+                    <div class="card" style="margin-bottom:5px;" id="model-{{ forloop.counter }}">
                         <div class="card-body">
                             <img src={{i.src}} class="center-img">
                             <h4 class="card-title text-center text-nowrap">{{i.name}}</h4>
@@ -19,10 +22,205 @@
                     </div>
                 </div>
                 {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="container" id="size">
+        <div class="section-title">
+            <h3>Size</h3>
+        </div>
 
+        <div class="container">
+            <div class="row">
+                <input type="hidden" id="sizes" name="sizes" value="{{ sizes | jsonify}}">
+                <input type="hidden" id="nome" name="nome" value="{{ nome }}"> {% for i in sizes %}
+                <div class="col-sm-6 col-md-3">
+                    <div class="card" style="margin-bottom:5px;" id="size-{{ forloop.counter }}">
+                        <div class="card-body">
+                            <img src={{i.src}} class="center-img">
+                            <h4 class="card-title text-center text-nowrap">{{i.name}}</h4>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="container" id="condition">
+        <div class="section-title">
+            <h3>Condition</h3>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <input type="hidden" id="conditions" name="conditions" value="{{ conditions | jsonify }}"> {% for i in conditions %}
+                <div class="col-sm-6 col-md-3">
+                    <div class="card" style="margin-bottom:5px;" id="condition-{{ forloop.counter }}">
+                        <div class="card-body">
+                            <img src={{i.src}} class="center-img">
+                            <h4 class="card-title text-center text-nowrap">{{i.name}}</h4>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="container" id="sended">
+        <div class="section-title">
+            <h3>Summary</h3>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <div class="card" style="margin-bottom:5px;">
+                        <div class="card-body">
+                            <img src='' class="center-img" id='model_src'>
+                            <h4 class="card-title text-center text-nowrap" id="model_name"></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="card" style="margin-bottom:5px;">
+                        <div class="card-body">
+                            <img src='' class="center-img" id="size_src">
+                            <h4 class="card-title text-center text-nowrap" id="size_name"></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="card" style="margin-bottom:5px;">
+                        <div class="card-body">
+                            <img src='' class="center-img" id="condition_src">
+                            <h4 class="card-title text-center text-nowrap" id="condition_name"></h4>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<div class="container h-100">
+    <div class="row align-items-center h-100">
+        <div class="col-12 mx-auto">
+            <button type="button" class="btn btn-primary" id="prev" onclick="next(-1)">Previous</button>
+            <button type="button" class="btn btn-primary float-right" id="next" onclick="next(1)">Next</button>
+            <button type="button" class="btn btn-primary btn-lg float-right" id="init" onclick="init()">Again!</button>
+        </div>
+    </div>
+</div>
+</div>
 
+
+<script>
+    var steps = ["model", "size", "condition"]
+    var current = 0;
+    var items = [];
+
+    var models = JSON.parse($('input#models')[0].value)
+    var sizes = JSON.parse($('input#sizes')[0].value);
+    var conditions = JSON.parse($('input#conditions')[0].value);
+
+    init();
+    function init() {
+        current = 0;
+        items = [];
+        remark();
+        hideNext();
+        showOrHideTab();
+        controlButtons();
+        controlSelected();
+        $('#sended').hide();
+        $('#init').hide();
+    }
+
+    function controlSelected() {
+        $("div.card").on("click", function (e) {
+            selected(e.currentTarget.id);
+            hideNext();
+            remark();
+        })
+    }
+
+    function cleanSelections() {
+        $('div.card.selected').each(function (i, e) {
+            $(e).removeClass("selected");
+        });
+    }
+
+    function remark() {
+
+        cleanSelections();
+
+        $(`div#model-${items.model}.card`).addClass("selected");
+        $(`div#size-${items.size}.card`).addClass("selected");
+        $(`div#condition-${items.condition}.card`).addClass("selected");
+    }
+
+    //get the clicked id
+    function getId(id) {
+        return id.replace(/\D/g, '');
+    }
+
+    //save the selected attribute
+    function selected(id) {
+        id = getId(id);
+        items[steps[current]] = id;
+    }
+
+
+    //hide the tab
+    function showOrHideTab() {
+        for (var i = 0; i < steps.length; i++) {
+            id = `#${steps[i]}`;
+            (current == i) ? $(id).show() : $(id).hide();
+        }
+    }
+
+    //check if no item was selected on current tab
+    function hideNext() {
+        if (items[steps[current]])
+            $('#next').show();
+        else
+            $('#next').hide();
+    }
+
+    function controlButtons() {
+        hideNext();
+
+
+
+        //hide prev button
+        (current == 0) ? $('#prev').hide() : $('#prev').show();
+
+        //show submit at end
+        (current == (steps.length - 1)) ? $('#next').text('Submit') : $('#next').text('Next');
+    }
+
+    function showSummary() {
+        $('#model_src')[0].src = models[items.model - 1].src;
+        $('#model_name').text(models[items.model - 1].name)
+
+        $('#size_src')[0].src = sizes[items.size - 1].src;
+        $('#size_name').text(sizes[items.size - 1].name)
+
+        $('#condition_src')[0].src = conditions[items.condition - 1].src;
+        $('#condition_name').text(conditions[items.condition - 1].name)
+    }
+
+    //controll section display
+    function next(num) {
+        current += num
+        showOrHideTab();
+        controlButtons();
+        remark();
+        if (current == steps.length) {
+            $('#sended').show();
+            $('#prev').hide();
+            $('#init').show();
+            showSummary();
+        }
+    }
+</script> 
 {% endblock content %}
